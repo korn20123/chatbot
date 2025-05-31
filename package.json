@@ -1,12 +1,12 @@
 {
   "name": "korn-chatbot",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "",
   "main": "main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/korn20123/chatbot.git"
-},
+  },
   "scripts": {
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
