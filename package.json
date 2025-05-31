@@ -1,11 +1,14 @@
 {
-  "name": "chatbot",
+  "name": "korn-chatbot",
   "version": "1.1.1",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "chatbot": "main.js"
   },
   "keywords": [],
   "author": "aaron",
