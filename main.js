@@ -4,7 +4,8 @@ const readline = require('readline');
 
 // OpenAI Client initialisieren
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+  baseURL: 'https://openrouter.ai/api/v1',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Readline-Interface für Nutzereingaben
@@ -17,7 +18,7 @@ const rl = readline.createInterface({
 async function askOpenAI(prompt) {
     try {
         const completion = await client.chat.completions.create({
-            model: 'gpt-4o-mini', // Du kannst das Modell anpassen, z. B. 'gpt-3.5-turbo'
+            model: 'openai/gpt-4o-mini', // Du kannst das Modell anpassen, z. B. 'gpt-3.5-turbo'
             messages: [
                 { role: 'system', content: 'du bist ein chat bot für tech intusiasten. mache also keine dummen beispiele und sei sehr genau!' }, 
                 { role: 'user', content: prompt },
