@@ -1,7 +1,7 @@
 # Chatbot Node.js Application
 
 ## Overview
-This is a simple chatbot application built with Node.js. It provides a commandline interface for users to interact with a bot, leveraging basic natural language processing and predefined responses.
+This is a simple chatbot application built with Node.js. It provides a commandline interface for users to interact with a bot, leveraging basic natural language processing and ai responses.
 
 ### Features
 - Real-time chat functionality
