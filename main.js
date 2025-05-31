@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 require('dotenv').config();
 const OpenAI = require('openai');
 const readline = require('readline');
