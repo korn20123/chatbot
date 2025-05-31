@@ -5,7 +5,7 @@
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/korn20123/chatbot.git",
+    "url": "git+https://github.com/korn20123/chatbot.git"
 },
   "scripts": {
     "start": "node main.js",
