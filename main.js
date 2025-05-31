@@ -18,6 +18,7 @@ const rl = readline.createInterface({
 // Funktion für Anfragen an OpenAI
 async function askOpenAI(prompt) {
     try {
+        console.log('generating response...');
         const completion = await client.chat.completions.create({
             model: 'openai/gpt-4o-mini', // Du kannst das Modell anpassen, z. B. 'gpt-3.5-turbo'
             messages: [
