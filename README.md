@@ -17,7 +17,8 @@ To set up and run the chatbot application locally, follow these steps:
 
 ### Setup Instructions
    run
-   cd chatbot
+   cd path_to_chatbot
+   note: path_to_chatbot is the path where you cloned the repository.
   
 
 2. **Install Dependencies**  
