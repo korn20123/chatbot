@@ -5,7 +5,7 @@ const readline = require('readline');
 
 // OpenAI Client initialisieren
 const client = new OpenAI({
-  baseURL: 'https://openrouter.ai/api/v1',
+  baseURL: 'https://openrouter.ai/api/v1', 
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
@@ -21,7 +21,7 @@ async function askOpenAI(prompt) {
         const completion = await client.chat.completions.create({
             model: 'openai/gpt-4o-mini', // Du kannst das Modell anpassen, z. B. 'gpt-3.5-turbo'
             messages: [
-                { role: 'system', content: 'du bist ein chat bot für tech intusiasten. mache also keine dummen beispiele und sei sehr genau!' }, 
+                { role: 'system', content: 'du bist ein chat bot für tech intusiasten. mache also keine dummen beispiele und sei sehr genau! Sei auserdem sehr proffessionell.' }, 
                 { role: 'user', content: prompt },
             ],
         });
