@@ -25,27 +25,26 @@ async function askOpenAI(prompt) {
         });
         return completion.choices[0].message.content;
     } catch (error) {
-        console.error('Fehler bei der Anfrage:', error.message);
-        return 'Entschuldigung, es ist ein Fehler aufgetreten.';
+        console.error('error with  request', error.message);
+        return 'Sorry, an error has occured';
     }
 }
 
 // Funktion für interaktive Nutzereingaben
 function startChat() {
 
-    rl.question('Deine Frage an den Chatbot (oder "exit" zum Beenden): ', async (input) => {
+    rl.question('your question to the chatbot (or exit to quit): ', async (input) => {
         if (input.toLowerCase() === 'exit') {
-            console.log('Chat beendet.');
+            console.log('Chat exited.');
             rl.close();
             return;
         }
 
         const response = await askOpenAI(input);
-        console.log('Antwort:', response);
+        console.log('Response:', response);
         startChat(); // Erneute Eingabeaufforderung
     });
 }
 
 // Chat starten
-console.log('Willkommen! Stelle deine Fragen an den Chatbot.');
 startChat();
