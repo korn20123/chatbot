@@ -28,7 +28,7 @@ To set up and run the chatbot application locally, follow these steps:
 
 3. **Configure Environment**  
    Create a `.env` file in the root directory and add any necessary configuration API key, Example:
-   OPENAI_API_KEY=your api key
+   OPENROUTER_API_KEY=your api key
 
 
 4. **Run the Application**  
