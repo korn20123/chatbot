@@ -14,8 +14,8 @@ To set up and run the chatbot application locally, follow these steps:
 - Node.js (version 14.x or higher)
 - npm (Node Package Manager)
 - A terminal or command-line interface
-
-### Setup Instructions
+### Instalation via github
+#### Setup Instructions
    run
    cd path_to_chatbot
    note: path_to_chatbot is the path where you cloned the repository.
@@ -35,7 +35,10 @@ To set up and run the chatbot application locally, follow these steps:
    Start the chatbot application with:
    npm start
 
-
+### install via npm
+Run npm install -g korn-Chatbot
+Then run npm link
+Now you can run Chatbot in any Directory.
 ### Troubleshooting
 - Ensure Node.js and npm are installed correctly by running `node -v` and `npm -v`.
 - If you encounter dependency issues, try clearing the npm cache with `npm cache clean --force` and reinstall dependencies.
