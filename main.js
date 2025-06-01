@@ -6,55 +6,77 @@ const readline = require('readline');
 
 // OpenAI Client initialisieren
 const client = new OpenAI({
-  baseURL: 'https://openrouter.ai/api/v1', 
+  baseURL: 'https://openrouter.ai/api/v1',
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
 // Readline-Interface für Nutzereingaben
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
-// function zum öffnen des github repositorys
+
+// Nachrichtenverlauf initialisieren
+const systemMessage={
+    role: 'system',
+    content: 'Du bist ein Chatbot für Tech-Enthusiasten. Gib präzise, professionelle und korrekte Antworten. Vermeide triviale Beispiele und überprüfe deine Antworten auf Richtigkeit. Kommunikation erfolgt über eine CLI OpenRouter API-Schnittstelle.',
+  };
+let messageHistory = [];
+
+// Funktion zum Öffnen des GitHub-Repositorys
 async function getRepo() {
-    let driver = await new Builder().forBrowser('chrome').build();
+  let driver = await new Builder().forBrowser('chrome').build();
+  try {
     await driver.get('https://github.com/korn20123/chatbot');
-}                                                          
+  } catch (error) {
+    console.error('Fehler beim Öffnen des Repositories:', error.message);
+  }
+}
+
 // Funktion für Anfragen an OpenAI
 async function askOpenAI(prompt) {
-    try {
-        console.log('generating response...');
-        const completion = await client.chat.completions.create({
-            model: 'meta-llama/llama-4-maverick:free',
-            messages: [
-                { role: 'system', content: 'du bist ein chat bot für tech intusiasten. mache also keine dummen beispiele und sei sehr genau! Sei auserdem sehr proffessionell.' }, 
-                { role: 'user', content: prompt },
-            ],
-        });
-        return completion.choices[0].message.content;
-    } catch (error) {
-        console.error('error with  request', error.message);
-        return 'Sorry, an error has occured';
+  try {
+    console.log('Generating response...');
+    // Benutzernachricht zum Verlauf hinzufügen
+    messageHistory.push({ role: 'user', content: prompt });
+    let messagesToSend=[systemMessage, ...messageHistory];
+    const completion = await client.chat.completions.create({
+      model: 'meta-llama/llama-4-maverick:free',
+      messages: messagesToSend, // Gesamten Verlauf senden
+    });
+
+    const response = completion.choices[0].message.content;
+    // Assistentenantwort zum Verlauf hinzufügen
+    messageHistory.push({ role: 'assistant', content: response });
+    if(messageHistory.length >= 10)
+    {
+      messageHistory.splice(0, 1);
     }
+    return response;
+  } catch (error) {
+    console.error('Error with the request:', error.message);
+    return 'Sorry, an error has occured';
+  }
 }
 
 // Funktion für interaktive Nutzereingaben
 function startChat() {
-
-    rl.question('your question to the chatbot (exit to quit. or repo to open the github repo.): ', async (input) => {
-        if (input.toLowerCase() === 'exit') {
-            console.log('Chat exited.');
-            rl.close();
-            return;
-        }
-        if(input.toLowerCase() =='repo') {
-            getRepo();
+  rl.question('your question to the Chatbot (exit to quit, repo to open the GitHub-Repo): ', async (input) => {
+    if (input.toLowerCase() === 'exit') {
+      console.log('Chat exited.');
+      rl.close();
+      return;
+    }
+    if (input.toLowerCase() === 'repo') {
+      await getRepo();
+      startChat(); // Erneute Eingabeaufforderung
+      return;
     }
 
-        const response = await askOpenAI(input);
-        console.log('Response:', response);
-        startChat(); // Erneute Eingabeaufforderung
-    });
+    const response = await askOpenAI(input);
+    console.log('response:', response);
+    startChat(); // Erneute Eingabeaufforderung
+  });
 }
 
 // Chat starten
