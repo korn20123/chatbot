@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 require('dotenv').config();
+const fs=require('fs');
 const { Builder, Browser, By, Key, until } = require('selenium-webdriver');
 const OpenAI = require('openai');
 const readline = require('readline');
@@ -22,7 +23,23 @@ const systemMessage={
     content: 'Du bist ein Chatbot für Tech-Enthusiasten. Gib präzise, professionelle und korrekte Antworten. Vermeide triviale Beispiele und überprüfe deine Antworten auf Richtigkeit. Wenn du dir nicht zu 90 % sicher bist frage nach. Kommunikation erfolgt über eine CLI OpenRouter API-Schnittstelle.',
   };
 let messageHistory = [];
-
+// function zum importieren des nachrichten verlaufs.
+function importMessageHistory() {
+    try {
+        const data = JSON.parse(fs.readFileSync('history.json'));
+        messageHistory.push(...data);
+    } catch(error) {
+        console.error(error.message);
+    }
+}
+//function zum exportieren des nachrichten verlaufs
+function exportMessageHistory() {
+    try {
+        fs.writeFileSync('history.json', JSON.stringify(messageHistory, null, 2));
+    } catch(error) {
+        console.error(error.message);
+    }
+}
 // Funktion zum Öffnen des GitHub-Repositorys
 async function getRepo() {
   let driver = await new Builder().forBrowser('chrome').build();
@@ -61,7 +78,13 @@ async function askOpenAI(prompt) {
 
 // Funktion für interaktive Nutzereingaben
 function startChat() {
-  rl.question('your question to the Chatbot (exit to quit, repo to open the GitHub-Repo): ', async (input) => {
+  rl.question('your question to the Chatbot (exit to quit,export to export your history, import to import your history, repo to open the GitHub-Repo): ', async (input) => {
+    if(input.toLowerCase() =='import') {
+        importMessageHistory();
+    }
+    if(input.toLowerCase() =='export') {
+        exportMessageHistory();
+    }
     if (input.toLowerCase() === 'exit') {
       console.log('Chat exited.');
       rl.close();
