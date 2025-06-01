@@ -19,7 +19,7 @@ const rl = readline.createInterface({
 // Nachrichtenverlauf initialisieren
 const systemMessage={
     role: 'system',
-    content: 'Du bist ein Chatbot für Tech-Enthusiasten. Gib präzise, professionelle und korrekte Antworten. Vermeide triviale Beispiele und überprüfe deine Antworten auf Richtigkeit. Kommunikation erfolgt über eine CLI OpenRouter API-Schnittstelle.',
+    content: 'Du bist ein Chatbot für Tech-Enthusiasten. Gib präzise, professionelle und korrekte Antworten. Vermeide triviale Beispiele und überprüfe deine Antworten auf Richtigkeit. Wenn du dir nicht zu 90 % sicher bist frage nach. Kommunikation erfolgt über eine CLI OpenRouter API-Schnittstelle.',
   };
 let messageHistory = [];
 
@@ -29,7 +29,7 @@ async function getRepo() {
   try {
     await driver.get('https://github.com/korn20123/chatbot');
   } catch (error) {
-    console.error('Fehler beim Öffnen des Repositories:', error.message);
+    console.error('Error with open the Repositorie:', error.message);
   }
 }
 
@@ -39,10 +39,10 @@ async function askOpenAI(prompt) {
     console.log('Generating response...');
     // Benutzernachricht zum Verlauf hinzufügen
     messageHistory.push({ role: 'user', content: prompt });
-    let messagesToSend=[systemMessage, ...messageHistory];
+    const messagesToSend=[systemMessage, ...messageHistory];
     const completion = await client.chat.completions.create({
       model: 'meta-llama/llama-4-maverick:free',
-      messages: messagesToSend, // Gesamten Verlauf senden
+      messages: messagesToSend // Gesamten Verlauf senden
     });
 
     const response = completion.choices[0].message.content;

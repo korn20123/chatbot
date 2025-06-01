@@ -6,6 +6,8 @@ This is a simple chatbot application built with Node.js. It provides a commandli
 ### Features
 - Real-time chat functionality
 - Lightweight and scalable
+- messageHistory for better context
+- api Integration to openrouter.ai
 
 ## Installation
 To set up and run the chatbot application locally, follow these steps:
