@@ -25,7 +25,7 @@ async function askOpenAI(prompt) {
     try {
         console.log('generating response...');
         const completion = await client.chat.completions.create({
-            model: 'deepseek/deepseek-chat-v3-0324:free','
+            model: 'deepseek/deepseek-chat-v3-0324:free',
             messages: [
                 { role: 'system', content: 'du bist ein chat bot für tech intusiasten. mache also keine dummen beispiele und sei sehr genau! Sei auserdem sehr proffessionell.' }, 
                 { role: 'user', content: prompt },
