@@ -8,7 +8,7 @@ This is a simple chatbot application built with Node.js. It provides a commandli
 - Lightweight and scalable
 - messageHistory for better context
 - api Integration to openrouter.ai
-
+- way to Export and Import messageHistory
 ## Installation
 To set up and run the chatbot application locally, follow these steps:
 
@@ -38,8 +38,13 @@ To set up and run the chatbot application locally, follow these steps:
    npm start
 
 ### install via npm
-Run npm install -g korn-Chatbot
+Run npm install korn-Chatbot
+**Configure Environment**  
+   Create a `.env` file in the root directory and add any necessary configuration API key, Example:
+   OPENROUTER_API_KEY=your api key
+
 Then run npm link
+
 Now you can run chatbot in any Directory.
 ### Troubleshooting
 - Ensure Node.js and npm are installed correctly by running `node -v` and `npm -v`.
