@@ -87,7 +87,8 @@ function startChat() {
     }
     if(input.toLowerCase() =='export') {
         exportMessageHistory();
-        console.log('messageHistory imported');
+        console.log('messageHistory exported');
+        startChat();
         return;
     }
     if (input.toLowerCase() === 'exit') {
