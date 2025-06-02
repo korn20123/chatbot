@@ -8,7 +8,7 @@ const readline = require('readline');
 // OpenAI Client initialisieren
 const client = new OpenAI({
   baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY,
+  apiKey: process.env.OPENROUTER_API_KEY
 });
 
 // Readline-Interface für Nutzereingaben
@@ -81,9 +81,14 @@ function startChat() {
   rl.question('your question to the Chatbot (exit to quit,export to export your history, import to import your history, repo to open the GitHub-Repo): ', async (input) => {
     if(input.toLowerCase() =='import') {
         importMessageHistory();
+        console.log('message history imported.');
+        startChat();
+        return;
     }
     if(input.toLowerCase() =='export') {
         exportMessageHistory();
+        console.log('messageHistory imported');
+        return;
     }
     if (input.toLowerCase() === 'exit') {
       console.log('Chat exited.');
